@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Get Your Key</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 50px; background: #f0f0f0; }
+        .key-box { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .key { font-size: 24px; font-weight: bold; color: #d32f2f; margin: 20px 0; padding: 10px; border: 2px dashed #333; }
+        p { color: #555; }
+    </style>
+</head>
+<body>
+
+<div class="key-box">
+    <h2>Today's Key</h2>
+    <p>Copy this key and paste it in the App:</p>
+    
+    <div class="key" id="keyDisplay">Loading...</div>
+    
+    <p><small>This key is valid for 24 Hours.</small></p>
+</div>
+
+<script>
+    // Logic: BINGE + Date + Month + Year
+    var d = new Date();
+    var day = ("0" + d.getDate()).slice(-2);
+    var month = ("0" + (d.getMonth() + 1)).slice(-2);
+    var year = d.getFullYear();
+    
+    var key = "BINGE" + day + month + year;
+    
+    document.getElementById("keyDisplay").innerText = key;
+</script>
+
+</body>
+</html>
