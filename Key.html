@@ -1,37 +1,50 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Get Your Key</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-        body { font-family: sans-serif; text-align: center; padding: 50px; background: #f0f0f0; }
-        .key-box { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        .key { font-size: 24px; font-weight: bold; color: #d32f2f; margin: 20px 0; padding: 10px; border: 2px dashed #333; }
-        p { color: #555; }
+        body { font-family: sans-serif; background-color: #f4f4f9; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); text-align: center; width: 350px; }
+        .key-display { background: #e0f7fa; color: #006064; font-size: 26px; font-weight: bold; padding: 15px; border-radius: 8px; border: 2px dashed #0097a7; margin: 20px 0; }
+        .btn { background: #007bff; color: white; border: none; padding: 12px 25px; border-radius: 5px; font-size: 16px; cursor: pointer; width: 100%; }
     </style>
 </head>
 <body>
 
-<div class="key-box">
-    <h2>Today's Key</h2>
-    <p>Copy this key and paste it in the App:</p>
-    
-    <div class="key" id="keyDisplay">Loading...</div>
-    
-    <p><small>This key is valid for 24 Hours.</small></p>
-</div>
+    <div class="card">
+        <h2>🔐 One-Time Key</h2>
+        <p>This key is unique for this session.</p>
 
-<script>
-    // Logic: BINGE + Date + Month + Year
-    var d = new Date();
-    var day = ("0" + d.getDate()).slice(-2);
-    var month = ("0" + (d.getMonth() + 1)).slice(-2);
-    var year = d.getFullYear();
-    
-    var key = "BINGE" + day + month + year;
-    
-    document.getElementById("keyDisplay").innerText = key;
-</script>
+        <div class="key-display" id="generatedKey">Generating...</div>
+        <button class="btn" onclick="copyKey()">📋 Copy Key</button>
+    </div>
+
+    <script>
+        // 1. URL se ID nikalo (Jo App ne bheja hai)
+        const urlParams = new URLSearchParams(window.location.search);
+        const uniqueID = urlParams.get('id');
+
+        if (uniqueID) {
+            // ------------------------------------------------
+            // SECRET FORMULA (Ye App aur Website dono me same hona chahiye)
+            // Logic: "BINGE" + (ID * 543)
+            // ------------------------------------------------
+            var secretMath = parseInt(uniqueID) * 543;
+            var finalKey = "BINGE" + secretMath;
+
+            document.getElementById("generatedKey").innerText = finalKey;
+        } else {
+            document.getElementById("generatedKey").innerText = "Error: Invalid Link";
+        }
+
+        function copyKey() {
+            var keyText = document.getElementById("generatedKey").innerText;
+            navigator.clipboard.writeText(keyText);
+            alert("Copied!");
+        }
+    </script>
 
 </body>
 </html>
